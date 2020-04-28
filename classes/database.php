@@ -16,7 +16,8 @@
       $this->con = new mysqli($this->host,$this->user,$this->pass,$this->dbname);
 
       if (!$this->con) {
-        $this-error =  'connection Failed'.$this->con.
+        $this->error =  'connection Failed'.$this->con->connect_error;
+        return FALSE;
       }
 
     }
