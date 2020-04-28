@@ -1,3 +1,13 @@
+<?php
+
+  require_once('../function/admin.php');
+  $db->connectDb();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
