@@ -1,8 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
-
-<!-- Mirrored from demo.hasthemes.com/khobor-preview/khobor/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 Apr 2020 17:03:02 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -1126,7 +1123,4 @@
 <script src="js/main.js"></script>
 
 </body>
-
-
-<!-- Mirrored from demo.hasthemes.com/khobor-preview/khobor/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 Apr 2020 17:03:04 GMT -->
 </html>
