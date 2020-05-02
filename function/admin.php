@@ -6,6 +6,7 @@
   require_once '../config/config.php';
   require_once '../classes/database.php' ;
   require_once '../classes/pagecontent.php' ;
+  require_once '../classes/session.php' ;
 
 
   //object of page content classes

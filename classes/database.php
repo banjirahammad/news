@@ -6,21 +6,31 @@
     public $user = user;
     public $pass = password;
     public $dbname = dbname;
-    public $con;
+    public $conn;
     public $error;
 
-    public function connectDb(){
 
-      $this->con = new mysqli($this->host,$this->user,$this->pass,$this->dbname);
+    public function __construct(){
+      $this->connectDb();
+    }
 
-      if (!$this->con) {
-        $this->error =  'connection Failed'.$this->con->connect_error;
+    private function connectDb(){
+      $this->conn = new mysqli($this->host,$this->user,$this->pass,$this->dbname);
+
+      if (!$this->conn) {
+        $this->error =  'connection Failed'.$this->conn->connect_error;
         return FALSE;
       }
-      else {
-        echo "all right";
-      }
+    }
 
+    public function select($query){
+      $result = $this->conn->query($query) or die($this->conn->error. __LINE__);
+      if ($result->num_rows > 0 ) {
+        return $result;
+      }
+      else {
+        return FALSE;
+      }
     }
 
 
