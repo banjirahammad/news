@@ -20,8 +20,9 @@
       seSSion::set('roleid',$value['role_id']);
       header('location:index.php');
       exit();
-
-
+    }
+    else {
+      $error = "password and email not match";
     }
 
 
@@ -72,6 +73,12 @@
         <div class="logo">
             <img alt="logo" src="images/logo-dark.png" />
         </div>
+        <!-- Password Error -->
+        <?php if(isset($error)){ ?>
+        <div class="box">
+          <h3 class="text-warning text-center"><span class="text-danger">Wrong!!</span> plase type correct email and password</h3>
+        </div>
+        <?php } ?>
         <div class="box">
             <!--SIGN IN FORM-->
             <div class="panel mb-none">
