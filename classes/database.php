@@ -24,7 +24,7 @@
     }
 
     public function select($query){
-      $result = $this->conn->query($query) or die($this->conn->error. __LINE__);
+      $result = $this->conn->query($query) or die($this->conn->error.__LINE__);
       if ($result->num_rows > 0 ) {
         return $result;
       }
@@ -32,6 +32,5 @@
         return FALSE;
       }
     }
-
 
   }
