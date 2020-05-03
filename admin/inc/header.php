@@ -1,282 +1,454 @@
 <?php
 
   require_once('../function/admin.php');
-  seSSion::check();
-  if (isset($_GET['action']) && $_GET['action']=='logout') {
-    seSSion::destroy();
+  sesSion::check();
+
+  if (isset($_GET['action']) AND $_GET['action']=='logout' ) {
+    sesSion::destroy();
   }
+
  ?>
-<!DOCTYPE html>
-<html lang="en">
+ <!doctype html>
+<html lang="en" class="fixed left-sidebar-top">
 
-<head>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+     <title>Online News || Admin</title>
+     <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+     <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+     <!--load progress bar-->
+     <script src="vendor/pace/pace.min.js"></script>
+     <link href="vendor/pace/pace-theme-minimal.css" rel="stylesheet" />
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+     <!--BASIC css-->
+     <!-- ========================================================= -->
+     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css">
+     <link rel="stylesheet" href="vendor/animate.css/animate.css">
+     <!--SECTION css-->
+     <!-- ========================================================= -->
+     <!--Notification msj-->
+     <link rel="stylesheet" href="vendor/toastr/toastr.min.css">
+     <!--Magnific popup-->
+     <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css">
+     <!--TEMPLATE css-->
+     <!-- ========================================================= -->
+     <link rel="stylesheet" href="stylesheets/css/style.css">
 
-  <title>Development News || Admin</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+ </head>
 
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+ <body>
+     <div class="wrap">
+         <!-- page HEADER -->
+         <!-- ========================================================= -->
+         <div class="page-header">
+             <!-- LEFTSIDE header -->
+             <div class="leftside-header">
+                 <div class="logo">
+                     <a href="index.php" class="on-click">
+                         <img alt="logo" src="images/header-logo.png" />
+                     </a>
+                 </div>
+                 <div id="menu-toggle" class="visible-xs toggle-left-sidebar" data-toggle-class="left-sidebar-open" data-target="html">
+                     <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                 </div>
+             </div>
+             <!-- RIGHTSIDE header -->
+             <div class="rightside-header">
+                 <div class="header-middle"></div>
+                 <!--SEARCH HEADERBOX-->
+                 <div class="header-section" id="search-headerbox">
+                     <input type="text" name="search" id="search" placeholder="Search...">
+                     <i class="fa fa-search search" id="search-icon" aria-hidden="true"></i>
+                     <div class="header-separator"></div>
+                 </div>
+                 <!--NOCITE HEADERBOX-->
+                 <div class="header-section hidden-xs" id="notice-headerbox">
+                     <!--check list-->
+                     <div class="notice" id="checklist-notice">
+                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                         <div class="dropdown-box basic">
+                             <div class="drop-header">
+                                 <h3><i class="fa fa-check-square-o" aria-hidden="true"></i> To-Do List</h3>
+                             </div>
+                             <div class="drop-content">
+                                 <div class="widget-list list-to-do">
+                                     <ul>
+                                         <li>
+                                             <div class="checkbox-custom checkbox-primary">
+                                                 <input type="checkbox" id="check-s1" value="option1">
+                                                 <label class="check" for="check-s1">Accusantium eveniet ipsam neque</label>
+                                             </div>
+                                         </li>
+                                         <li>
+                                             <div class="checkbox-custom checkbox-primary">
+                                                 <input type="checkbox" id="check-s2" value="option1" checked>
+                                                 <label class="check" for="check-s2">Lorem ipsum dolor sit</label>
+                                             </div>
+                                         </li>
+                                         <li>
+                                             <div class="checkbox-custom checkbox-primary">
+                                                 <input type="checkbox" id="check-s3" value="option1">
+                                                 <label class="check" for="check-s3">Dolor eligendi in ipsum sapiente</label>
+                                             </div>
+                                         </li>
+                                         <li>
+                                             <div class="checkbox-custom checkbox-primary">
+                                                 <input type="checkbox" id="check-s4" value="option1">
+                                                 <label class="check" for="check-s4">Natus recusandae vel</label>
+                                             </div>
+                                         </li>
+                                         <li>
+                                             <div class="checkbox-custom checkbox-primary">
+                                                 <input type="checkbox" id="check-s5" value="option1">
+                                                 <label class="check" for="check-s5">Adipisci amet officia tempore ut</label>
+                                             </div>
+                                         </li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="drop-footer">
+                                 <a>See all Items</a>
+                             </div>
+                         </div>
+                     </div>
+                     <!--messages-->
+                     <div class="notice" id="messages-notice">
+                         <i class="fa fa-comments-o" aria-hidden="true"><span class="badge badge-xs badge-top-right x-danger"><i class="fa fa-exclamation"></i></span>
+                         </i>
+                         <div class="dropdown-box basic">
+                             <div class="drop-header ">
+                                 <h3><i class="fa fa-comments" aria-hidden="true"></i> Messages</h3>
+                                 <span class="badge x-danger b-rounded">120</span>
+                             </div>
+                             <div class="drop-content">
+                                 <div class="widget-list list-left-element">
+                                     <ul>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><img alt="profile photo" src="images/avatar/avatar_1.jpg" /></div>
+                                                 <div class="text">
+                                                     <span class="title">John Doe</span>
+                                                     <span class="subtitle">hello world</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><img alt="profile photo" src="images/avatar/avatar_2.jpg" /></div>
+                                                 <div class="text">
+                                                     <span class="title">Alice Smith</span>
+                                                     <span class="subtitle">hello world</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><img alt="profile photo" src="images/avatar/avatar_3.jpg" /></div>
+                                                 <div class="text">
+                                                     <span class="title">Klaus Wolf</span>
+                                                     <span class="subtitle">hello world</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><img alt="profile photo" src="images/avatar/avatar_4.jpg" /></div>
+                                                 <div class="text">
+                                                     <span class="title">Sun Li</span>
+                                                     <span class="subtitle">hello world</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><img alt="profile photo" src="images/avatar/avatar_5.jpg" /></div>
+                                                 <div class="text">
+                                                     <span class="title">Sonia Valera</span>
+                                                     <span class="subtitle">hello world</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="drop-footer">
+                                 <a>See all messages</a>
+                             </div>
+                         </div>
+                     </div>
+                     <!--alerts notices-->
+                     <div class="notice" id="alerts-notice">
+                         <i class="fa fa-bell-o" aria-hidden="true"><span class="badge badge-xs badge-top-right x-danger">7</span></i>
 
-</head>
+                         <div class="dropdown-box basic">
+                             <div class="drop-header">
+                                 <h3><i class="fa fa-bell-o" aria-hidden="true"></i> Notifications</h3>
+                                 <span class="badge x-danger b-rounded">7</span>
 
-<body id="page-top">
+                             </div>
+                             <div class="drop-content">
+                                 <div class="widget-list list-left-element list-sm">
+                                     <ul>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><i class="fa fa-warning color-warning"></i></div>
+                                                 <div class="text">
+                                                     <span class="title">8 Bugs</span>
+                                                     <span class="subtitle">reported today</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><i class="fa fa-flag color-danger"></i></div>
+                                                 <div class="text">
+                                                     <span class="title">Error</span>
+                                                     <span class="subtitle">sevidor C down</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><i class="fa fa-cog color-dark"></i></div>
+                                                 <div class="text">
+                                                     <span class="title">New Configuration</span>
+                                                     <span class="subtitle"></span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><i class="fa fa-tasks color-success"></i></div>
+                                                 <div class="text">
+                                                     <span class="title">14 Task</span>
+                                                     <span class="subtitle">completed</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                         <li>
+                                             <a href="#">
+                                                 <div class="left-element"><i class="fa fa-envelope color-primary"></i></div>
+                                                 <div class="text">
+                                                     <span class="title">21 Menssage</span>
+                                                     <span class="subtitle"> (see more)</span>
+                                                 </div>
+                                             </a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="drop-footer">
+                                 <a>See all notifications</a>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="header-separator"></div>
+                 </div>
+                 <!--USER HEADERBOX -->
+                 <div class="header-section" id="user-headerbox">
+                     <div class="user-header-wrap">
+                         <div class="user-photo">
+                             <img alt="profile photo" src="images/avatar/avatar_user.jpg" />
+                         </div>
+                         <div class="user-info">
+                             <span class="user-name">Jane Doe</span>
+                             <span class="user-profile">Admin</span>
+                         </div>
+                         <i class="fa fa-plus icon-open" aria-hidden="true"></i>
+                         <i class="fa fa-minus icon-close" aria-hidden="true"></i>
+                     </div>
+                     <div class="user-options dropdown-box">
+                         <div class="drop-content basic">
+                             <ul>
+                                 <li> <a href="pages_user-profile.html"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                                 <li> <a href="pages_lock-screen.html"><i class="fa fa-lock" aria-hidden="true"></i> Lock Screen</a></li>
+                                 <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Configurations</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="header-separator"></div>
+                 <!--Log out -->
+                 <div class="header-section">
+                     <a href="?action=logout" data-toggle="tooltip" data-placement="left" title="Logout"><i class="fa fa-sign-out log-out" aria-hidden="true"></i></a>
+                 </div>
+             </div>
+         </div>
+         <!-- page BODY -->
+         <!-- ========================================================= -->
+         <div class="page-body">
+             <!-- LEFT SIDEBAR -->
+             <!-- ========================================================= -->
+             <div class="left-sidebar">
+                 <!-- left sidebar HEADER -->
+                 <div class="left-sidebar-header">
+                     <div class="left-sidebar-title">Menu</div>
+                     <div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs" data-toggle-class="left-sidebar-collapsed" data-target="html">
+                         <span></span>
+                     </div>
+                 </div>
+                 <!-- NAVIGATION -->
+                 <!-- ========================================================= -->
+                 <div id="left-nav" class="nano">
+                     <div class="nano-content">
+                         <nav>
+                             <ul class="nav nav-left-lines" id="main-nav">
+                                 <!--HOME-->
+                                 <li class="active-item"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
+                                 <!--UI ELEMENTENTS-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-cubes" aria-hidden="true"></i><span>UI Elements</span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="ui-elements_panels.html">Panels</a></li>
+                                         <li><a href="ui-elements_accordions.html">Accordions</a></li>
+                                         <li><a href="ui-elements_tabs.html">Tabs</a></li>
+                                         <li><a href="ui-elements_buttons.html">Buttons</a></li>
+                                         <li><a href="ui-elements_typography.html">Typography</a></li>
+                                         <li><a href="ui-elements_alerts.html">Alerts</a></li>
+                                         <li><a href="ui-elements_modals.html">Modals</a></li>
+                                         <li><a href="ui-elements_lightbox.html">Lightbox</a></li>
+                                         <li class="has-child-item close-item">
+                                             <a>Notifications</a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="ui-elements_notifications-pnotify.html">PNotify</a></li>
+                                                 <li><a href="ui-elements_notifications-toastr.html">Toastr</a></li>
+                                             </ul>
+                                         </li>
+                                         <li><a href="ui-elements_animations-appear.html">Animations</a></li>
+                                         <li><a href="ui-elements_badges-tags.html">Badge & Tags</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--CHARTS-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-pie-chart" aria-hidden="true"></i><span>Charts</span> </a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="charts_chart-js.html">CharJS</a></li>
+                                         <li><a href="charts_morris.html">Morris</a></li>
+                                         <li><a href="charts_peity.html">Peity</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--FORMS-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-columns" aria-hidden="true"></i><span>Forms </span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="forms_layouts.html">Layouts</a></li>
+                                         <li><a href="forms_elements.html">Elements</a></li>
+                                         <li><a href="forms_advanced.html">Advanced</a></li>
+                                         <li><a href="forms_validation.html">Validation</a></li>
+                                         <li><a href="forms_wizard.html">Wizard</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--TABLES-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-table" aria-hidden="true"></i><span>Tables</span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="tables_basic.html">Basic</a></li>
+                                         <li><a href="tables_data-tables.html">DataTable</a></li>
+                                         <li><a href="tables_responsive.html">Responsive</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--PAGES-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-files-o" aria-hidden="true"></i><span>Pages</span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="pages_sign-in.html">Sign in</a></li>
+                                         <li><a href="pages_register.html">Register</a></li>
+                                         <li><a href="pages_lock-screen.html">Lock screen</a></li>
+                                         <li><a href="pages_forgot-password.html">Forgot password</a></li>
+                                         <li class="has-child-item close-item">
+                                             <a>Error pages</a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="pages_error-404-content.html">Error 404 content</a></li>
+                                                 <li><a href="pages_error-404.html">Error 404 page</a></li>
+                                                 <li><a href="pages_error-500.html">Error 500</a></li>
+                                             </ul>
+                                         </li>
+                                         <li><a href="pages_faq.html">FAQ</a></li>
+                                         <li><a href="pages_user-profile.html">User profile</a></li>
+                                         <li class="has-child-item close-item">
+                                             <a>Search results<span></a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="pages_search-results-list.html">List style</a></li>
+                                                 <li><a href="pages_search-results-grid.html">Grid Style</a></li>
+                                             </ul>
+                                         </li>
+                                         <li class="has-child-item close-item">
+                                             <a>Projects<span></a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="pages_project-list.html">List</a></li>
+                                                 <li><a href="pages_project-detail.html">Detail</a></li>
+                                             </ul>
+                                         </li>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+                                     </ul>
+                                 </li>
+                                 <!--WIDGETS-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-paper-plane" aria-hidden="true"></i><span>Widgets</span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="widgets_boxes.html">Boxes</a></li>
+                                         <li><a href="widgets_lists.html">Lists</a></li>
+                                         <li><a href="widgets_posts.html">Posts</a></li>
+                                         <li><a href="widgets_timelines.html">Timelines</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--HELPERS-->
+                                 <li class="has-child-item close-item">
+                                     <a><i class="fa fa-magic" aria-hidden="true"></i><span>Helpers</span></a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a href="helpers_background-border.html">Background & Border</a></li>
+                                         <li><a href="helpers_margin-padding.html">Margin & Padding</a></li>
+                                     </ul>
+                                 </li>
+                                 <!--MENU LEVELS-->
+                                 <li class=" has-child-item close-item">
+                                     <a>
+                                         <i class="fa fa-sitemap" aria-hidden="true"></i>
+                                         <span>Menu levels</span>
+                                     </a>
+                                     <ul class="nav child-nav level-1">
+                                         <li><a>First Item</a></li>
+                                         <li class="has-child-item close-item">
+                                             <a>Second Item</a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="#">Option 1</a></li>
+                                                 <li><a href="#">Option 2</a></li>
+                                                 <li class="has-child-item close-item">
+                                                     <a>Option 3</a>
+                                                     <ul class="nav child-nav level-3 ">
+                                                         <li><a href="#">Item 1</a></li>
+                                                         <li><a href="#">Item 2</a></li>
+                                                         <li><a href="#">Item 3</a></li>
+                                                     </ul>
+                                                 </li>
+                                             </ul>
+                                         </li>
+                                         <li><a>Third Item</a></li>
+                                         <li class="has-child-item close-item">
+                                             <a>Fourth Item</a>
+                                             <ul class="nav child-nav level-2 ">
+                                                 <li><a href="#">Option 1</a></li>
+                                                 <li><a href="#">Option 2</a></li>
+                                                 <li class="has-child-item close-item">
+                                                     <a>Option 3</a>
+                                                     <ul class="nav child-nav level-3 ">
+                                                         <li><a href="#">Item 1</a></li>
+                                                         <li><a href="#">Item 2</a></li>
+                                                         <li><a href="#">Item 3</a></li>
+                                                     </ul>
+                                                 </li>
+                                             </ul>
+                                         </li>
+                                     </ul>
+                                 </li>
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Blog Admin</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link" href="category.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Category</span></a>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-            <a class="collapse-item" href="#">Colors</a>
-            <a class="collapse-item" href="#">Borders</a>
-            <a class="collapse-item" href="#">Animations</a>
-            <a class="collapse-item" href="#">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
+                             </ul>
+                         </nav>
+                     </div>
+                 </div>
+             </div>

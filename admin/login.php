@@ -7,108 +7,123 @@
 
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $query = "SELECT * FROM users WHERE user_email = '$email' AND user_password = '$password'";
-    $result = $db->select($query);
 
-    if ($result != FALSE) {
+    $query = "SELECT * FROM users WHERE user_email = '$email' and user_password='$password' ";
+    $result = $db->select($query);
+    if ($result !=FALSE) {
+
       $value = mysqli_fetch_array($result);
       // print_r($value);
-      seSSion::set('login',true);
+      seSSion::set('login',TRUE);
       seSSion::set('username',$value['user_name']);
-      seSSion::set('useremail',$value['user_email']);
+      seSSion::set('userpassword',$value['user_password']);
       seSSion::set('roleid',$value['role_id']);
       header('location:index.php');
       exit();
+
+
     }
 
+
+
+
+
+
   }
+
+
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
+
+
+<!doctype html>
+<html lang="en" class="fixed accounts sign-in">
+
+
+<!-- Mirrored from myiideveloper.com/helsinki/last-version/helsinki_green-dark/src/pages_sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Apr 2020 21:20:10 GMT -->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Delelopment News || Admin login</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>News || Admin Login</title>
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <!--BASIC css-->
+    <!-- ========================================================= -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="vendor/animate.css/animate.css">
+    <!--SECTION css-->
+    <!-- ========================================================= -->
+    <!--TEMPLATE css-->
+    <!-- ========================================================= -->
+    <link rel="stylesheet" href="stylesheets/css/style.css">
 </head>
 
-<body class="bg-gradient-primary">
-
-  <div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-      <div class="col-xl-10 col-lg-12 col-md-9">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                  </div>
-                  <form class="user" action="" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </button>
-                    <hr>
-                    <a href="index.html" class="btn btn-google btn-user btn-block">
-                      <i class="fab fa-google fa-fw"></i> Login with Google
-                    </a>
-                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                      <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                    </a>
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<body>
+<div class="wrap">
+    <!-- page BODY -->
+    <!-- ========================================================= -->
+    <div class="page-body animated slideInDown">
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!--LOGO-->
+        <div class="logo">
+            <img alt="logo" src="images/logo-dark.png" />
         </div>
-
-      </div>
-
+        <div class="box">
+            <!--SIGN IN FORM-->
+            <div class="panel mb-none">
+                <div class="panel-content bg-scale-0">
+                    <form action="" enctype="multipart/form-data" method="post" >
+                        <div class="form-group mt-md">
+                            <span class="input-with-icon">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <span class="input-with-icon">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <i class="fa fa-key"></i>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-custom checkbox-primary">
+                                <input type="checkbox" id="remember-me" value="option1" checked>
+                                <label class="check" for="remember-me">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="pages_forgot-password.html">Forgot password?</a>
+                            <hr/>
+                             <span>Don't have an account?</span>
+                            <a href="pages_register.html" class="btn btn-block mt-sm">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     </div>
-
-  </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
+</div>
+<!--BASIC scripts-->
+<!-- ========================================================= -->
+<script src="vendor/jquery/jquery-1.12.3.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/nano-scroller/nano-scroller.js"></script>
+<!--TEMPLATE scripts-->
+<!-- ========================================================= -->
+<script src="javascripts/template-script.min.js"></script>
+<script src="javascripts/template-init.min.js"></script>
+<!-- SECTION script and examples-->
+<!-- ========================================================= -->
 </body>
 
+
+<!-- Mirrored from myiideveloper.com/helsinki/last-version/helsinki_green-dark/src/pages_sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Apr 2020 21:20:27 GMT -->
 </html>
